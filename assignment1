@@ -1,0 +1,43 @@
+
+# README.md
+
+Ansible Assignment 1
+
+
+Add NinjaTeam (Simulate Group) ex: team1
+ansible -i inventory db -m group -a "name=team1 state=present" -b
+
+ansible target_host -m group -a "name=team1 state=present"
+
+ansible -i inventory db -m user -a "name=Nitish groups=team1 state=present" -b
+
+A user should have read,write, execute access to home directory
+
+ansible -i inventory -m file -a "path=/home/Nitish mode=0700 group=team1"
+
+Ensure the user has the appropriate access to the home directory and shared directories
+All the users of same team should have read and excute access to home directory of fellow team members.
+ansible -i inventory db -m file -a "path=/home/Nitish state=directory owner=Nitish group=team1 mode=0750" -b
+
+In home directory of every user there should be 2 shared directories
+Team: Same team members will have full access.
+ansible -i inventory db -m file -a "path=/home/Nitish/Team state=directory owner=Nitish group=team1 mode=0774" -b
+
+Ninja: All ninja's will have full access
+ansible -i inventory db -m file -a "path=/home/Nitish/Ninja state=directory owner=Nitish group=tam1 mode=0770" -b
+
+Change user Shell
+ansible -i inventory db -m user -a "name=Nitish state=present shell=/bin/bash"
+
+Change user password
+ansible -i inventory db -m user -a "name=Nitish state=present password= ckk123"
+
+Delete user
+ansible -i inventory db -m user -a "name=Nitish state=absent"
+
+Delete Group
+ansible -i inventory db -m group -a "name=team1 state=absent"
+## Documentation
+
+[Documentation](https://linktodocumentation)
+
